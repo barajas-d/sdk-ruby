@@ -42,7 +42,21 @@ module Mercadopago
     def create(payment_data, request_options: nil)
       raise TypeError, 'Param payment_data must be a Hash' unless payment_data.is_a?(Hash)
 
-      _post(uri: '/v1/payments/', data: payment_data, request_options: request_options)
+      _post(uri: '/v1/payments', data: payment_data, request_options: request_options)
+    end
+
+    # Creates a new payment (alias for {#create}).
+    #
+    # This method provides compatibility with the POST /v1/payments endpoint
+    # using the conventional HTTP verb naming.
+    #
+    # @param payment_data [Hash] payment attributes (amount, payer, payment_method, etc.)
+    # @param request_options [RequestOptions, nil] per-call configuration override
+    # @return [Hash{Symbol => Object}] +:status+ and +:response+ with the created payment
+    # @raise [TypeError] if +payment_data+ is not a Hash
+    # @see https://www.mercadopago.com/developers/en/reference/online-payments/checkout-api-payments/create-payment/post
+    def post(payment_data, request_options: nil)
+      create(payment_data, request_options: request_options)
     end
 
     # Updates an existing payment (e.g. capture an authorized payment).
