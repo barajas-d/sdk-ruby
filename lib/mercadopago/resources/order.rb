@@ -102,6 +102,19 @@ module Mercadopago
       _get(uri: "/v1/orders/#{order_id}", request_options: request_options)
     end
 
+    # Retrieves refunds for a specific order.
+    #
+    # Queries the +/v1/orders/{order_id}/refund+ endpoint to fetch all refund
+    # records associated with the order. Optional headers (+X-Idempotency-Key+,
+    # +X-Product-ID+) can be passed via +request_options.custom_headers+.
+    #
+    # @param order_id [String] order ID
+    # @param request_options [RequestOptions, nil] per-call configuration override
+    # @return [Hash{Symbol => Object}] +:status+ and +:response+ with the refunds data
+    def get_refunds(order_id, request_options: nil)
+      _get(uri: "/v1/orders/#{order_id}/refund", request_options: request_options)
+    end
+
     # Processes (confirms) an order, triggering payment execution.
     #
     # @param order_id [String] order ID
